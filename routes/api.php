@@ -13,5 +13,11 @@ Route::post('/reset/password', [\App\Http\Controllers\AuthController::class, 're
 
 Route::middleware('auth:sanctum')->group(function (){
     Route::get('is-admin', [\App\Http\Controllers\AuthController::class, 'isAdmin']);
+
+    Route::middleware('is.admin')->prefix('admin')->group(function (){
+        Route::post('/client/{id}/material', [\App\Http\Controllers\Admin\ClientController::class, 'storeMaterial']);
+        Route::post('/client/update/{id}/material', [\App\Http\Controllers\Admin\ClientController::class, 'updateMaterial']);
+        Route::delete('/client/{id}/material', [\App\Http\Controllers\Admin\ClientController::class, 'deleteMaterial']);
+        Route::apiResource('client', \App\Http\Controllers\Admin\ClientController::class);
+    });
 });
-// Clients | logo(file), company, name, login, password

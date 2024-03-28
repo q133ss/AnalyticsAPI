@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->is_admin;
     }
+
+    public function materials()
+    {
+        return $this->belongsToMany(File::class, 'users_materials');
+    }
 }
