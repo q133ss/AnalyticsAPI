@@ -11,8 +11,9 @@ class MaterialService
 {
     public function store($request, string $type, int $client_id = 0)
     {
-        User::findOrFail($client_id);
-
+        if($client_id != 0) {
+            User::findOrFail($client_id);
+        }
         $data = $request->validated();
         $data['type'] = $type;
 
@@ -30,10 +31,10 @@ class MaterialService
             DB::table('users_materials')->insert(['user_id' => $client_id, 'file_id' => $file->id]);
         }
 
-        return $file;
+        return $file->load('category');
     }
 
-    public function update($request, string $type, int $id)
+    public function update($request, int $id)
     {
         $data = $request->validated();
         unset($data['file']);
@@ -52,7 +53,7 @@ class MaterialService
 
         $file->update($data);
 
-        return $file;
+        return $file->load('category');
     }
 
     public function delete(int $id): \Illuminate\Http\JsonResponse

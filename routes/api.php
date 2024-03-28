@@ -15,9 +15,14 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::get('is-admin', [\App\Http\Controllers\AuthController::class, 'isAdmin']);
 
     Route::middleware('is.admin')->prefix('admin')->group(function (){
-        Route::post('/client/{id}/material', [\App\Http\Controllers\Admin\ClientController::class, 'storeMaterial']);
-        Route::post('/client/update/{id}/material', [\App\Http\Controllers\Admin\ClientController::class, 'updateMaterial']);
-        Route::delete('/client/{id}/material', [\App\Http\Controllers\Admin\ClientController::class, 'deleteMaterial']);
+        Route::post('/client/{client_id}/material', [\App\Http\Controllers\Admin\ClientController::class, 'storeMaterial']);
+        Route::post('/client/update/{material_id}/material', [\App\Http\Controllers\Admin\ClientController::class, 'updateMaterial']);
+        Route::delete('/client/{material_id}/material', [\App\Http\Controllers\Admin\ClientController::class, 'deleteMaterial']);
         Route::apiResource('client', \App\Http\Controllers\Admin\ClientController::class);
+
+        Route::get('/general/materials', [\App\Http\Controllers\Admin\GeneralMaterialsController::class, 'index']);
+        Route::post('/general/materials', [\App\Http\Controllers\Admin\GeneralMaterialsController::class, 'store']);
+        Route::post('/general/materials/{id}/update', [\App\Http\Controllers\Admin\ClientController::class, 'updateMaterial']);
+        Route::delete('/general/materials/{id}', [\App\Http\Controllers\Admin\ClientController::class, 'deleteMaterial']);
     });
 });

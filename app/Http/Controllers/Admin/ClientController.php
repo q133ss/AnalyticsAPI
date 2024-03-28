@@ -43,12 +43,14 @@ class ClientController extends Controller
      */
     public function show(string $id)
     {
-        return User::with('materials')->findOrFail($id);
+        return User::with(['materials' => function ($query) {
+            $query->with('category');
+        }])->findOrFail($id);
     }
 
     public function updateMaterial(UpdateMaterialRequest $request, int $id)
     {
-        return (new MaterialService())->update($request, 'client', $id);
+        return (new MaterialService())->update($request, $id);
     }
 
     public function deleteMaterial(int $id): \Illuminate\Http\JsonResponse

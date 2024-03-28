@@ -9,4 +9,10 @@ class File extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $hidden = ['category_id'];
+
+    public function category()
+    {
+        return $this->hasOne(Category::class, 'id', 'category_id');
+    }
 }
