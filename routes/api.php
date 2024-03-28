@@ -34,6 +34,8 @@ Route::middleware('auth:sanctum')->group(function (){
         Route::post('/special/reports', [\App\Http\Controllers\Admin\SpecialMaterialsController::class, 'store']);
         Route::post('/special/reports/{id}/update', [\App\Http\Controllers\Admin\ClientController::class, 'updateMaterial']);
         Route::delete('/special/reports/{id}', [\App\Http\Controllers\Admin\ClientController::class, 'deleteMaterial']);
+
+        Route::apiResource('category', App\Http\Controllers\Admin\CategoryController::class);
     });
 });
 
