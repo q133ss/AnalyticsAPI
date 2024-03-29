@@ -17,9 +17,9 @@ class ClientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return User::orderBy('created_at', 'DESC')->where('id', '!=', Auth()->id())->get();
+        return User::withSortDefault($request)->withSort($request)->where('id', '!=', Auth()->id())->get();
     }
 
     /**
@@ -41,10 +41,10 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
-        return User::with(['materials' => function ($query) {
-            $query->with('category');
+        return User::with(['materials' => function ($query) use ($request) {
+            $query->withSortDefault($request)->withSort($request)->with('category');
         }])->findOrFail($id);
     }
 

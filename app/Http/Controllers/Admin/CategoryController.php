@@ -13,9 +13,9 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Category::orderBy('created_at', 'DESC')->get();
+        return Category::withSortDefault($request)->withSort($request)->get();
     }
 
     /**

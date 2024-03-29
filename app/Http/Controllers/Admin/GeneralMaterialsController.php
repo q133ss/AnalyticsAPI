@@ -11,9 +11,9 @@ use Illuminate\Http\Request;
 
 class GeneralMaterialsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return File::where('type', 'all')->orderBy('created_at', 'desc')->get();
+        return File::withSortDefault($request)->withSort($request)->where('type', 'all')->orderBy('created_at', 'desc')->get();
     }
     public function store(StoreMaterialRequest $request)
     {

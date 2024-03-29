@@ -25,11 +25,6 @@ Route::middleware('auth:sanctum')->group(function (){
         Route::post('/general/materials/{id}/update', [\App\Http\Controllers\Admin\ClientController::class, 'updateMaterial']);
         Route::delete('/general/materials/{id}', [\App\Http\Controllers\Admin\ClientController::class, 'deleteMaterial']);
 
-        Route::get('/general/materials', [\App\Http\Controllers\Admin\GeneralMaterialsController::class, 'index']);
-        Route::post('/general/materials', [\App\Http\Controllers\Admin\GeneralMaterialsController::class, 'store']);
-        Route::post('/general/materials/{id}/update', [\App\Http\Controllers\Admin\ClientController::class, 'updateMaterial']);
-        Route::delete('/general/materials/{id}', [\App\Http\Controllers\Admin\ClientController::class, 'deleteMaterial']);
-
         Route::get('/special/reports', [\App\Http\Controllers\Admin\SpecialMaterialsController::class, 'index']);
         Route::post('/special/reports', [\App\Http\Controllers\Admin\SpecialMaterialsController::class, 'store']);
         Route::post('/special/reports/{id}/update', [\App\Http\Controllers\Admin\ClientController::class, 'updateMaterial']);
