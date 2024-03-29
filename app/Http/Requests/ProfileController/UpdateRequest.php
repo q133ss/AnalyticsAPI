@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Requests\Admin\ClientController;
+namespace App\Http\Requests\ProfileController;
 
-use App\Models\User;
-use Closure;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UpdateRequest extends FormRequest
 {
@@ -34,14 +32,7 @@ class UpdateRequest extends FormRequest
                 'sometimes',
                 'email',
                 'max:255',
-                function(string $attribute, mixed $value, Closure $fail): void {
-                    $user = User::where('login', $this->login);
-                    if($user->pluck('email')->first() != $value){
-                        if(User::where('email', $value)->where('id', '!=', $user->pluck('id')->first())->exists()){
-                            $fail('Указанный email уже зарегистрирован');
-                        }
-                    }
-                }
+                Rule::unique('users')->ignore(Auth()->id())
             ],
             'password' => 'sometimes|string|min:8|max:255',
         ];
@@ -56,6 +47,7 @@ class UpdateRequest extends FormRequest
             'patronymic.string' => 'Поле отчество должно быть строкой',
             'company.string' => 'Поле компания должно быть строкой',
             'email.email' => 'Поле email должно быть действительным адресом электронной почты',
+            'email.unique' => 'Указанный email уже зарегистрирован',
             'password.string' => 'Поле пароль должно быть строкой',
             'password.min' => 'Пароль должен содержать минимум 8 символов',
         ];

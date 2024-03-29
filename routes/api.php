@@ -32,7 +32,12 @@ Route::middleware('auth:sanctum')->group(function (){
 
         Route::apiResource('category', App\Http\Controllers\Admin\CategoryController::class);
     });
+
+    Route::get('/me', [\App\Http\Controllers\ProfileController::class, 'me']);
+    Route::post('/me', [\App\Http\Controllers\ProfileController::class, 'update']);
+
+    Route::get('/get/{type}', [\App\Http\Controllers\MaterialController::class, 'get']);
+    Route::get('/favorite', [\App\Http\Controllers\MaterialController::class, 'getByIds']);
 });
 
-# TODO сортировка!!!!
 // перед отправкой нужно проверить все с 0!!!
